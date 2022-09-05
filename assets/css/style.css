@@ -82,6 +82,25 @@ sub { bottom: -.25em; }
 .cf { *zoom: 1; }
 
 /*for all*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --clr-offwhite: #ddd;
+  --clr-white: #fff;
+  --clr-black1: #555;
+  --clr-black2: #333;
+  --clr-blue1: #5696D6;
+  --clr-blue2: #086599;
+  --bg-black: rgba(0,0,0,.5);
+}
+
 body {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -97,20 +116,119 @@ li {
   list-style-type: none;
 }
 
+span { display: inline-block; }
+p { line-height: 1.5; }
+
+::first-letter { text-transform: uppercase; }
+
+.section-heading {
+  font-size: 23px;
+  color: var(--clr-black1);
+}
+
 /*for wrapper*/
 .wrapper {
   max-width: 1360px;
-  width: 86%; 
+  width: 100%; 
   margin: 0 auto;
 }
+
 /*=================================
   Header styling starts here
 =================================*/
 
+header .wrapper {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 10px solid var(--clr-blue2);
+}
 
+.header-bg,
+.header-bg img {
+  height: 100%;
+  position: relative;
+  object-fit: cover;
+  object-position: center;
+}
 
+.logo {
+  width: 120px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 4;
+  box-shadow: 0 0 1px var(--clr-black2);
+}
 
+nav {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  z-index: 5;
+  background-color: var(--clr-blue2);
+  transition: all .3s;
+}
 
+nav ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+nav li a {
+  color: var(--clr-white);
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.menu-toggle {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  z-index: 6;
+  cursor: pointer;
+} 
+
+.menu-toggle .bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  background-color: var(--clr-blue1);
+  text-indent: -99999px;
+  transition: all .3s;
+}
+
+.menu-toggle .bar-top {
+  top: 0;
+  box-shadow: 0 13px 0 var(--clr-blue1);
+}
+
+.menu-toggle .bar-bottom { bottom: 0; }
+
+.menu-toggle:hover .bar-top {
+  box-shadow: none;
+  transform: translateY(13px) rotate(45deg);
+}
+
+.menu-toggle:hover .bar-bottom {
+  transform: translateY(-13px) rotate(-45deg);
+}
+
+.menu-toggle:hover ~ nav { left: 0; }
 
 /*=================================
   Header styling ends here
@@ -120,12 +238,118 @@ li {
   main styling starts here
 =================================*/
 
+/* bookstore section starts here */
 
+.bookstore .wrapper { padding: 80px 2.5% 67px; }
 
+.bookstore p {
+  margin: 25px 0 55px;
+  font-size: 16px;
+}
 
+.bookstore-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
 
+.bookstore-list .list-item {
+  border-bottom: 1px solid var(--clr-black1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.bookstore-list .list-item:last-child { border-bottom: none; }
 
+.bookstore-button {
+  text-align: center;
+  background-color: var(--clr-white);
+}
+
+.bookstore-button a {
+  padding: 20px 5px 30px;
+  color: var(--clr-black2);
+  font-size: 18px;
+}
+
+.bookstore-control {
+  margin-top: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.bookstore-control .control-item a {
+  padding: 12px 19px;
+  background-color: var(--clr-offwhite);
+  color: var(--clr-black1);
+  font-size: 18px;
+}
+
+/* modal box styling starts here */
+
+.modal-box {
+  width: 100%;
+  height: 100vh;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  background-color: var(--bg-black);
+}
+
+.modal-content {
+  width: 233px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+}
+
+/* modal box styling ends here */
+
+/* bookstore section ends here */
+
+/* need-help section starts here */
+
+.need-help .wrapper {
+  padding: 60px 2.5% 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  background-color: var(--clr-blue2);
+}
+
+.need-help .liveChat-logo {
+  width: 108px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.need-help-content .section-heading,
+.need-help-content p,
+.need-help-content a {
+  color: var(--clr-white);
+}
+
+.need-help-content .section-heading { text-transform: capitalize; }
+.need-help-content p { margin: 15px 0 22px; }
+
+.need-help-content a {
+  padding: 12px 24px;
+  border: 1px solid var(--clr-white);
+  font-size: 18px;
+  text-transform: capitalize;
+}
+/* need-help section ends here */
 
 /*=================================
   main styling ends here
@@ -135,20 +359,26 @@ li {
   footer styling starts here
 =================================*/ 
 
+footer .wrapper {
+  padding: 14px 2.5%;
+  margin-top: 67px;
+  background-color: var(--clr-black2);
+}
 
-
-
-
-
+footer p {
+  color: var(--clr-white);
+  font-size: 16px;
+  text-align: center;
+  text-transform: capitalize;
+}
 
  /*=================================
   footer styling ends here
 =================================*/ 
 
-/*media query starts*/
-/*media query for 995px starts here*/
-@media only screen and (max-width: 995px) {
-
+/* media query starts
+/*media query for min-width: 320px starts here*/
+@media only screen and (min-width: 320px) {
 
 
 }  
