@@ -1,6 +1,8 @@
-var headerMenu = document.querySelectorAll("nav li a");
-var bookstoreList = document.querySelectorAll(".bookstore-list .list-item");
-var bookstoreControl = document.querySelectorAll(".bookstore-control .control-item a");
+var nav = document.querySelector('nav');
+var headerMenu = document.querySelectorAll("nav a");
+var bookstoreList = document.querySelectorAll(".list-item");
+var bookstoreControl = document.querySelectorAll(".control-item a");
+var toggleMenu = document.querySelector('.menu-toggle');
 
 var modalBox = document.querySelector(".modal-box");
 var modalContent = document.querySelector(".modal-content");
@@ -27,6 +29,18 @@ function removeActive() {
   modalBox.classList.remove("display-block");
   closeModal.classList.remove("display-block");
 }
+
+// hamburger toggle
+toggleMenu.addEventListener('click', function(){
+  var toggleBar = this.children;
+
+  for(var bar of toggleBar) {
+    bar.classList.toggle('active');
+  }
+
+  nav.classList.toggle('active');
+  html.classList.toggle("overflow-hidden");
+})
 
 headerMenu.forEach(function (menu) {
   menu.addEventListener("click", function (e) {
