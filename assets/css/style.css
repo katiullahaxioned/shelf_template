@@ -98,7 +98,7 @@ sub { bottom: -.25em; }
   --clr-black2: #333;
   --clr-blue1: #5696D6;
   --clr-blue2: #086599;
-  --bg-black: rgba(0,0,0,.5);
+  --bg-black: rgba(0,0,0,.7);
 }
 
 body {
@@ -109,6 +109,7 @@ body {
 a { 
   display: inline-block;
   text-decoration: none; 
+  transition: all .3s;
 }
 
 li {
@@ -190,6 +191,11 @@ nav li a {
   text-transform: capitalize;
 }
 
+nav li a.active {
+  color: var(--clr-blue1);
+  text-shadow: 1px 1px 1px var(--clr-black2);
+}
+
 .menu-toggle {
   width: 30px;
   height: 30px;
@@ -243,7 +249,8 @@ nav li a {
 .bookstore .wrapper { padding: 80px 2.5% 67px; }
 
 .bookstore p {
-  margin: 25px 0 55px;
+  margin: 23px 0 60px;
+  color: var(--clr-black1);
   font-size: 16px;
 }
 
@@ -257,14 +264,17 @@ nav li a {
 
 .bookstore-list .list-item {
   border-bottom: 1px solid var(--clr-black1);
+  flex-basis: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 .bookstore-list .list-item:last-child { border-bottom: none; }
 
 .bookstore-button {
+  width: 100%;
   text-align: center;
   background-color: var(--clr-white);
 }
@@ -283,11 +293,16 @@ nav li a {
   gap: 10px;
 }
 
-.bookstore-control .control-item a {
+.bookstore-control a {
   padding: 12px 19px;
   background-color: var(--clr-offwhite);
   color: var(--clr-black1);
   font-size: 18px;
+}
+
+.bookstore-control li a.active {
+  background-color: var(--clr-blue2);
+  color: var(--clr-white);
 }
 
 /* modal box styling starts here */
@@ -312,6 +327,22 @@ nav li a {
   transform: translate(-50%, -50%);
 }
 
+.close-modal {
+  display: none;
+  position: fixed;
+  top: 5px;
+  right: 15px;
+  z-index: 9;
+  color: var(--clr-blue2);
+  cursor: pointer;
+  font-size: 50px;
+  mix-blend-mode: difference;
+  transition: all .3s;
+}
+
+.display-block { display: block; }
+html.overflow-hidden { overflow: hidden; }
+
 /* modal box styling ends here */
 
 /* bookstore section ends here */
@@ -329,26 +360,49 @@ nav li a {
 }
 
 .need-help .liveChat-logo {
-  width: 108px;
   border-radius: 50%;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .need-help-content .section-heading,
 .need-help-content p,
 .need-help-content a {
   color: var(--clr-white);
+  text-align: center;
 }
 
 .need-help-content .section-heading { text-transform: capitalize; }
 .need-help-content p { margin: 15px 0 22px; }
 
+.livechat-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .need-help-content a {
   padding: 12px 24px;
   border: 1px solid var(--clr-white);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
   font-size: 18px;
   text-transform: capitalize;
 }
+
+.need-help-content a::before {
+  content: '';
+  width: 0;
+  height: 100%;
+  background-color: var(--clr-white);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  transition: all .3s;
+}
+
 /* need-help section ends here */
 
 /*=================================
@@ -377,8 +431,166 @@ footer p {
 =================================*/ 
 
 /* media query starts
-/*media query for min-width: 320px starts here*/
-@media only screen and (min-width: 320px) {
+/*media query for min-width: 540px starts here*/
+@media only screen and (min-width: 540px) {
 
+  /* common styling */
 
-}  
+  .section-heading { font-size: 28px; }
+
+  /* header section starts here */
+
+  .logo { width: 180px; }
+
+  .menu-toggle {
+    top: 30px;
+    right: 15px;
+  }
+
+  /* header section ends here */
+
+}
+
+/*media query for min-width: 768px starts here*/
+@media only screen and (min-width: 768px) {
+
+  /* common styling */
+
+  .section-heading { font-size: 33px; }
+
+  /* header section starts here */
+
+  header .wrapper { height: 475px; }
+
+  .logo {
+    width: 230px;
+    top: 68px;
+    left: 77px;
+  }
+
+  .menu-toggle { display: none; } 
+
+  nav {
+    height: auto;
+    padding: 27px 0;
+    position: absolute;
+    top: unset;
+    bottom: 0;
+    left: 0;
+    background-color: var(--bg-black);
+  }
+
+  nav ul {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 15px;
+  }
+
+  /* header section ends here */
+
+  /* bookstore section starts here */
+
+  .bookstore .wrapper { padding: 77px 5% 67px; }
+  .bookstore p { font-size: 18px; }
+
+  .bookstore-list .list-item {
+    border-bottom: none;
+    flex-basis: auto;
+  }
+
+  /* bookstore section ends here */
+
+  /* need-help section starts here */
+
+  .need-help .wrapper {
+    width: 90%;
+    padding: 53px 5% 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 52px;
+    background-color: var(--clr-blue2);
+  }
+
+  .need-help .liveChat-logo { margin-top: 15px; }
+  .need-help-content .section-heading { font-size: 32px; }
+  .need-help-content p { margin: 15px 0 22px; }
+  
+  .livechat-button {
+    justify-content: flex-start;
+  }
+
+  .need-help-content .section-heading,
+  .need-help-content p,
+  .need-help-content a {
+    text-align: left;
+  }
+
+  /* need-help section ends here */
+
+  /* footer section starts here */
+
+  footer p { font-size: 18px; }
+
+  /* footer section ends here */
+
+}
+
+/*media query for min-width: 1024px starts here*/
+@media only screen and (min-width: 1024px) {
+
+  /* common styling */
+
+  .wrapper { width: 81%; }
+
+  /* header section starts here */
+
+  header .wrapper { width: 81%; }
+
+  /* header section ends here */
+
+  /* bookstore section starts here */
+
+  .bookstore .wrapper { padding: 77px 3.5% 67px; }
+  .bookstore p { font-size: 19px; }
+  .bookstore-list { gap: 20px; }
+
+  /* bookstore section ends here */
+
+  /* need-help section starts here */
+
+  .need-help .wrapper {
+    width: 74%;
+    padding: 53px 7% 50px;
+  }
+
+  .need-help-content p {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* need-help section ends here */
+
+  /* all hover effects starts here */
+
+  nav li a:hover { color: var(--clr-blue1); }
+  .bookstore-button a:hover { color: var(--clr-blue2); }
+  
+  .bookstore-control a:hover {
+    background-color: var(--clr-blue2);
+    color: var(--clr-white);
+  }
+
+  .close-modal:hover { opacity: 0.7; }
+  .need-help-content a:hover { color: var(--clr-blue2); }
+
+  .need-help-content a:hover::before {
+    width: 100%;
+    right: unset;
+    left: 0;
+  }
+
+  /* all hover effects ends here */
+
+}
